@@ -22,10 +22,9 @@ function firstFunction1() {
 
 firstFunction1();
 
-function helloPerson ($name) {
-    global $foo;
-    print "Hello $name! ($foo)\n";
-}
+// function helloPerson ($name) {
+    // global $foo;
+    // print "Hello $name! ($foo)\n";}
 
 helloPerson("Hales");
 helloPerson("Alex");
