@@ -16,11 +16,11 @@ helloPerson("Joonas");
 
 $foo = "bar";
 
-function firstFunction() {
+function firstFunction1() {
     print "Hello Universe!\n";
 }
 
-firstFunction();
+firstFunction1();
 
 function helloPerson ($name) {
     global $foo;
