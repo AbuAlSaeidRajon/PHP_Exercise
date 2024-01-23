@@ -30,6 +30,6 @@ print "checkAge($age3) returns " . ($result3 ? 'true' : 'false') . "\n";
 $age4 = 12345678;
 $result4 = checkAge($age4);
 print "checkAge($age4) returns " . ($result4 ? 'true' : 'false') . "\n";
-?>
+
 
 
