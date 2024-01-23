@@ -17,7 +17,7 @@ helloPerson("Joonas");
 $foo = "bar";
 
 function firstFunction() {
-    print "Hello World!\n";
+    print "Hello Universe!\n";
 }
 
 firstFunction();
