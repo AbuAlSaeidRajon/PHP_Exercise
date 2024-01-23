@@ -5,3 +5,9 @@ function firstFunction() {
 }
 
 firstFunction();
+
+function helloPerson ($name) {
+    print "Hello $name!\n";
+}
+
+helloPerson("Joonas");
