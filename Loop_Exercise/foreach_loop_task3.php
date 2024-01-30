@@ -11,3 +11,6 @@ Hold on a minute! Poisonous Berry is dangerous!
 
 For a bit of extra challenge, you can use the condition that if the fruit name contains the word “poisonous”, it’s considered dangerous and ends the loop.
 
+<?php
+$fruits = array("Apple", "Banana", "Poisonous Berry", "Strawberry", "Grapes");
+print "Today we will eat ...\n";
