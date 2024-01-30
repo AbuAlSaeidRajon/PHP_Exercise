@@ -73,10 +73,10 @@ $travel_reviews = array(
     </section>
 
     <section class="review">
-        <h2 class="location">Paris, France</h2>
-        <p class="author">Alice</p>
-        <p class="date">2023-05-15</p>
-        <p class="comments">Paris was absolutely breathtaking! The Eiffel Tower at night is a must-see.</p>
+        <h2 class="location">Rome, Italy</h2>
+        <p class="author">Charlie</p>
+        <p class="date">2023-09-10</p>
+        <p class="comments">Rome is like an open-air museum. The Colosseum is awe-inspiring.</p>
     </section>
 
     <section class="review">
