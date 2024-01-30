@@ -2,3 +2,23 @@
 
 **Extra challenge: Print the calculation too. You may need a conditional statement (if) to avoid printing an extra plus sign to the end.
 
+<?php
+$number1 = 1;
+$number2 = 5; 
+
+$sum = 0;
+$calculation = '';
+
+for ($i = $number1; $i <= $number2; $i++) {
+    $sum += $i;
+    $calculation .= $i;
+
+    if ($i < $number2) {
+        $calculation .= ' + ';
+    }
+}
+
+print "The sum of the series from $number1 to $number2 is: $sum\n";
+print "Calculation: $calculation = $sum";
+
+
