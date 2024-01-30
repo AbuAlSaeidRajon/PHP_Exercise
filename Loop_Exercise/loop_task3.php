@@ -4,8 +4,8 @@
 $file = fopen("input.txt", "r");
 
 if ($file) {
-    for (; ($number = fgets($file)) !== false;) {
-        print $number;
+    for (; ($i = fgets($file)) !== false;) {
+        print $i;
     }
 
     fclose($file);
