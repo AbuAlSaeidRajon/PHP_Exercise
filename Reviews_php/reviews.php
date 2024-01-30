@@ -87,17 +87,17 @@ $travel_reviews = array(
     </section>
 
     <section class="review">
-        <h2 class="location">Paris, France</h2>
-        <p class="author">Alice</p>
-        <p class="date">2023-05-15</p>
-        <p class="comments">Paris was absolutely breathtaking! The Eiffel Tower at night is a must-see.</p>
+        <h2 class="location">Sydney, Australia</h2>
+        <p class="author">Eva</p>
+        <p class="date">2023-12-25</p>
+        <p class="comments">pending Christmas in Sydney was amazing! Bondi Beach is perfect for a holiday getaway.</p>
     </section>
 
     <section class="review">
-        <h2 class="location">Paris, France</h2>
-        <p class="author">Alice</p>
-        <p class="date">2023-05-15</p>
-        <p class="comments">Paris was absolutely breathtaking! The Eiffel Tower at night is a must-see.</p>
+        <h2 class="location">New York City, USA</h2>
+        <p class="author">Frank</p>
+        <p class="date">2024-01-15</p>
+        <p class="comments">New York City never sleeps! The diversity of cultures and cuisines is unmatched.</p>
     </section>
     
 </div>
