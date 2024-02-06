@@ -17,8 +17,8 @@
             $email = $_POST['email'];
             $password1 = $_POST['password1'];
             $password2 = $_POST['password2'];
-            $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-            $other_gender = isset($_POST['other_gender']) ? $_POST['other_gender'] : '';
+            $gender = $_POST['gender'];
+            $other_gender = $_POST['other_gender'];
 
             if ($name == '' || $email == '' || $password1 == '' || $password2 == '' || $gender == '') {
                 echo "Please fill all the fields.";
@@ -39,8 +39,8 @@
         <input name="email" type="email" value="<?php echo $email; ?>" /><br>
 
         Gender:
-        <input type="radio" name="gender" value="male" <?php if ($gender == 'male') echo 'checked'; ?>> Male
-        <input type="radio" name="gender" value="female" <?php if ($gender == 'female') echo 'checked'; ?>> Female
+        <input type="radio" name="gender" value="Male" <?php if ($gender == 'male') echo 'checked'; ?>> Male
+        <input type="radio" name="gender" value="Female" <?php if ($gender == 'female') echo 'checked'; ?>> Female
         <input type="radio" name="gender" value="other" <?php if ($gender == 'other') echo 'checked'; ?>> Other
         <input type="text" name="other_gender" value="<?php echo $other_gender; ?>" placeholder="Specify other gender"><br>
 
