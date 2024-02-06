@@ -7,7 +7,9 @@
 </head>
 <body>
 <?php
-    
-
+    for ($i = 0; $i < $_POST["number"]; $i = $i + 2) {
+        echo $i, '<br>';
+    }
+?>
 </body>
 </html>
