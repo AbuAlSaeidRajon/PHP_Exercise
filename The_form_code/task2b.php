@@ -16,7 +16,7 @@
 
     <?php
 
-        $name = $email = $password1 = $password2 = $gender = '';
+        $name = $email = $password1 = $password2 = '';
 
  
         // Handle the form submit
@@ -52,7 +52,7 @@
 
     ?>
 
-    <form action="task3.php" method="post">
+    <form action="task2b.php" method="post">
 
         Name:
 
@@ -71,20 +71,6 @@
         <input name="password2" type="password" value="<?php echo $password2;?>"/><br>
 
         <button type="submit">Register</button>
-
-        <!--
-
-            TODO:
-
-            Add radio buttons for gender information
-
-            male female other (+ fill in text field)
-
-            if the user selected other handle the fill in field.
-
-            In any case save the gender info to variable $gender as a string. 
-
-        -->
 
     </form>
 
