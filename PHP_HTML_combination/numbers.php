@@ -7,9 +7,13 @@
 </head>
 <body>
 <?php
-    for ($i = 0; $i < $_POST["number"]; $i = $i + 2) {
-        echo $i, '<br>';
-    }
+    if (is_integer($_POST["number"])) {
+        echo "It's not an integer";
+    } else {
+        for ($i = 0; $i < $_POST["number"]; $i = $i + 2) {
+            echo $i, '<br>';
+    }}
+    
 ?>
 </body>
 </html>
