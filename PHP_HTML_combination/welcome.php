@@ -6,13 +6,12 @@
     <title>Welcome</title>
 </head>
 <body>
-   <h2> Welcome <?php echo $_POST["name"];
-    ?></h2>
-    <p>Your E-mail address is <?php echo $_POST["email"]; ?></p>
+    <h2>Welcome <?php echo $_POST["name"]; ?></h2>
+    <p>Your email address is <?php echo $_POST["email"]; ?>
     <?php if (substr($_POST["email"], -8) !== '.invalid') { ?>
-        <br>Your E-mail address is valid.
-        <?php 
-    }
+        <br>Your email address is valid.
+    <?php
+        }
     ?>
     </p>
 </body>
