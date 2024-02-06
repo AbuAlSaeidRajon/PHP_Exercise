@@ -15,7 +15,7 @@
        OR $_POST['password2'] == ''
     ) {
         echo "Please fill all the fields.";
-        echo '<a href="task2.html">Back to the form</a>';
+        echo '<a href="task2.html"> Back to the form</a>';
     } elseif ($_POST['password1'] != $_POST['password2']) {
         echo "Passwords don't match.";
         echo '<a href="task2.html">Back to the form</a>';
