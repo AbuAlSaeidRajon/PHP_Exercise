@@ -28,3 +28,14 @@
             "genre" => $genre,
             "description" => $description
         ];
+
+        $books[] = $newBook;
+
+        // Once you have added the new book to the variable $books write it into the file.
+        file_put_contents("books.json", json_encode($books));
+
+        // Redirect the user back to the admin page
+        header("location: admin.php");
+        exit;
+    }
+?>
