@@ -1,44 +1,35 @@
 <?php
-    // Check if the GET parameter "logout" is set. If so, log the user out.
-    if (isset($_GET['logout'])) {
-        session_start();
-        session_destroy();
-    }
+session_start();
 
-    // Check if the user is already logged in. If so, redirect to admin.php.
-    if (isset($_SESSION['username'])) {
-        header("Location: admin.php");
+// Check if the GET parameter "logout" is set. If so, log the user out.
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit;
+}
+
+// Check if the user is already logged in. If so, redirect to admin.php.
+if (isset($_SESSION['login'])) {
+    header('Location: admin.php');
+    exit;
+}
+
+// Check if the form has been sent. If so, check the username and password and if correct, log the user in and redirect to admin.php.
+// If not correct, show the error message near the form.
+[$correct_username, $correct_password] = ['admin', 'pass'];
+if (isset($_POST['login'])) {
+    if ($_POST['username'] === $correct_username && $_POST['password'] === $correct_password) {
+        $_SESSION['login'] = true;
+        header('Location: admin.php');
         exit;
+    } else {
+        $error = 'Invalid username or password';
     }
-
-    // Check if the form has been sent. If so, check the username and password and if correct, log the user in and redirect to admin.php.
-    // If not correct, show the error message near the form.
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        // Sample user data (replace it with your own user data storage)
-        $users = [
-            ['username' => 'admin', 'password' => 'password'],
-            // Add more users as needed
-        ];
-
-        foreach ($users as $user) {
-            if ($user['username'] === $username && $user['password'] === $password) {
-                session_start();
-                $_SESSION['username'] = $username;
-                header("Location: admin.php");
-                exit;
-            }
-        }
-
-        // Display an error message if the username or password is incorrect
-        echo '<style>#error-message { color: red; }</style>';
-        echo '<p id="error-message">Invalid username or password</p>';
-    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="booksite.css">
 </head>
+
 <body>
     <div id="container">
         <header>
@@ -54,15 +46,15 @@
         <nav id="main-navi">
             <ul>
                 <li><a href="booksite.php">Home</a></li>
-                <li><a href="booksite.php?category=adventure">Adventure</a></li>
-                <li><a href="booksite.php?category=classic">Classic Literature</a></li>
-                <li><a href="booksite.php?category=coming-of-age">Coming-of-age</a></li>
-                <li><a href="booksite.php?category=fantasy">Fantasy</a></li>
-                <li><a href="booksite.php?category=historical">Historical Fiction</a></li>
-                <li><a href="booksite.php?category=horror">Horror</a></li>
-                <li><a href="booksite.php?category=mystery">Mystery</a></li>
-                <li><a href="booksite.php?category=romance">Romance</a></li>
-                <li><a href="booksite.php?category=scifi">Science Fiction</a></li>
+                <li><a href="booksite.php?genre=Adventure">Adventure</a></li>
+                <li><a href="booksite.php?genre=Classic Literature">Classic Literature</a></li>
+                <li><a href="booksite.php?genre=Coming-of-age">Coming-of-age</a></li>
+                <li><a href="booksite.php?genre=Fantasy">Fantasy</a></li>
+                <li><a href="booksite.php?genre=Historical Fiction">Historical Fiction</a></li>
+                <li><a href="booksite.php?genre=Horror">Horror</a></li>
+                <li><a href="booksite.php?genre=Mystery">Mystery</a></li>
+                <li><a href="booksite.php?genre=Romance">Romance</a></li>
+                <li><a href="booksite.php?genre=Science Fiction">Science Fiction</a></li>
             </ul>
         </nav>
         <main>
@@ -76,8 +68,12 @@
                     <input type="password" id="password" name="password">
                 </p>
                 <p><input type="submit" name="login" value="Log in"></p>
+                <?php if (isset($error)) : ?>
+                    <small class="error"><?= $error ?></small>
+                <?php endif; ?>
             </form>
         </main>
-    </div>    
+    </div>
 </body>
+
 </html>

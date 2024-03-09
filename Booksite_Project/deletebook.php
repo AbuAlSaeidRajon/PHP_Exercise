@@ -1,30 +1,30 @@
 <?php
-    // If the user is not logged in, redirect them back to login.php.
-    session_start();
-    if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-        header("location: login.php");
-        exit;
-    }
+session_start();
+// If the user is not logged in, redirect them back to login.php.
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php");
+    exit();
+}
 
-    // Check the POST parameter "bookid". If it's set, delete the corresponding book from the data file.
-    if (isset($_POST['bookid'])) {
-        $bookId = (int)$_POST['bookid'];
-        $json = file_get_contents("books.json");
-        $books = json_decode($json, true);
+// Read the file into array variable $books:
+$books = json_decode(file_get_contents('books.json'), true);
 
-        // Find the index of the book to remove
-        foreach ($books as $index => $book) {
-            if ($book['id'] === $bookId) {
-                array_splice($books, $index, 1);
-                break;
-            }
+// Check the POST parameter "bookid". If it's set, delete the corresponding book from the data file.
+// Hint: array_diff will not work here, since you'd need to create the whole book "object". Find the index and use array_splice instead.
+
+if (isset($_POST['bookid'])) {
+    $bookid = $_POST['bookid'];
+
+    foreach ($books as $index => $book) {
+        if ($book['id'] == $bookid) {
+            array_splice($books, $index, 1);
+            break;
         }
-
-        // Once you have removed the book from the variable $books write it into the file.
-        file_put_contents("books.json", json_encode($books));
     }
+    file_put_contents('books.json', json_encode($books));
+}
 
-    // Redirect back to admin.php.
-    header("location: admin.php");
-    exit;
-?>
+
+// Redirect back to admin.php.
+header('Location: admin.php');
+exit;

@@ -1,48 +1,76 @@
 <?php
-    // If the user is not logged in, redirect them back to login.php.
-    session_start();
-    if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-        header("location: login.php");
-        exit;
+session_start();
+// If the user is not logged in, redirect them back to login.php.
+if (!isset($_SESSION['login'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Read the file into array variable $books:
+$books = json_decode(file_get_contents('books.json'), true);
+
+// If 'bookid' is set in the GET request, use it as the book ID (for editing existing book).
+// Otherwise, increment the book ID by one for adding a new book.
+isset($_GET['bookid']) ? $bookid = $_GET['bookid'] : $bookid = count($books) + 1;
+
+// fetch book details for editing
+$bookDetails = [];
+foreach ($books as $book) {
+    if ($book['id'] == $bookid) {
+        $bookDetails = $book;
+        break;
+    }
+}
+
+// determine the button text
+$buttonText = isset($_GET['editbook']) ? 'Edit Book' : 'Add Book';
+
+// if the form has been sent, add the book to the data file
+
+// In order to protect against cross-site scripting attacks (i.e. basic PHP security), remove HTML tags from all input.
+// There's a function for that. E.g.
+// $title = strip_tags($_POST["title"]);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $bookid = strip_tags($_POST["bookid"]);
+    $title = strip_tags($_POST["title"]);
+    $author = strip_tags($_POST["author"]);
+    $year = strip_tags($_POST["year"]);
+    $genre = strip_tags($_POST["genre"]);
+    $description = strip_tags($_POST["description"]);
+
+    $book = [
+        'id' => $bookid,
+        'title' => $title,
+        'author' => $author,
+        'publishing_year' => $year,
+        'genre' => $genre,
+        'description' => $description
+    ];
+
+    // Check if the book is being edited
+    $isEditing = false;
+    foreach ($books as $index => $existingBook) {
+        if ($existingBook['id'] == $bookid) {
+            $books[$index] = $book;  // Update the existing book
+            $isEditing = true;
+            break;
+        }
     }
 
-    // If the form has been sent, add the book to the data file
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // In order to protect against cross-site scripting attacks (i.e. basic PHP security), remove HTML tags from all input.
-        $title = strip_tags($_POST["title"]);
-        $author = strip_tags($_POST["author"]);
-        $year = strip_tags($_POST["year"]);
-        $genre = strip_tags($_POST["genre"]);
-        $description = strip_tags($_POST["description"]);
-
-        // Read the file into array variable $books
-        $json = file_get_contents("books.json");
-        $books = json_decode($json, true);
-
-         // Add the new book to the array
-         $newBook = [
-            "bookid" => $_POST["bookid"],
-            "title" => $title,
-            "author" => $author,
-            "year" => $year,
-            "genre" => $genre,
-            "description" => $description
-        ];
-
-        $books[] = $newBook;
-
-        // Once you have added the new book to the variable $books write it into the file.
-        file_put_contents("books.json", json_encode($books));
-
-        // Redirect the user back to the admin page
-        header("location: admin.php");
-        exit;
+    // If the book is not being edited, add it to the array
+    if (!$isEditing) {
+        $books[] = $book;
     }
+
+    file_put_contents('books.json', json_encode($books));
+
+    header('Location: admin.php');
+    exit;
+}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,6 +78,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="booksite.css">
 </head>
+
 <body>
     <div id="container">
         <header>
@@ -57,31 +86,52 @@
         </header>
         <nav id="main-navi">
             <ul>
-                <li><a href="booksite.php">Home</a></li>
-                <li><a href="booksite.php?category=adventure">Adventure</a></li>
-                <li><a href="booksite.php?category=classic">Classic Literature</a></li>
-                <li><a href="booksite.php?category=coming-of-age">Coming-of-age</a></li>
-                <li><a href="booksite.php?category=fantasy">Fantasy</a></li>
-                <li><a href="booksite.php?category=historical">Historical Fiction</a></li>
-                <li><a href="booksite.php?category=horror">Horror</a></li>
-                <li><a href="booksite.php?category=mystery">Mystery</a></li>
-                <li><a href="booksite.php?category=romance">Romance</a></li>
-                <li><a href="booksite.php?category=scifi">Science Fiction</a></li>
+                <li><a href="admin.php">Admin Home</a></li>
+                <li><a href="addbook.php">Add a New Book</a></li>
+                <li><a href="login.php?logout">Log Out</a></li>
             </ul>
         </nav>
         <main>
-            <form action="login.php" method="post">
+            <h2>Add a New Book</h2>
+            <form action="addbook.php" method="post">
                 <p>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username">
+                    <label for="bookid">ID:</label>
+                    <?php echo $bookid ?>
+                    <input type="hidden" name="bookid" value="<?php echo $bookid; ?>">
                 </p>
                 <p>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" value="<?php echo $bookDetails['title'] ?? ''; ?>">
                 </p>
-                <p><input type="submit" name="login" value="Log in"></p>
+                <p>
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" value="<?php echo $bookDetails['author'] ?? ''; ?>">
+                </p>
+                <p>
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" name="year" value="<?php echo $bookDetails['publishing_year'] ?? ''; ?>">
+                </p>
+                <p>
+                    <label for="genre">Genre:</label>
+                    <select id="genre" name="genre">
+                        <!-- Add the selected attribute to the genre that matches the book's genre -->
+                        <?php
+                        $genres = ['Adventure', 'Classic Literature', 'Coming-of-age', 'Fantasy', 'Historical Fiction', 'Horror', 'Mystery', 'Romance', 'Science Fiction'];
+                        foreach ($genres as $genre) {
+                            $selected = ($bookDetails['genre'] ?? '') == $genre ? ' selected' : '';
+                            echo '<option value="' . $genre . '"' . $selected . '>' . $genre . '</option>';
+                        }
+                        ?>
+                    </select>
+                </p>
+                <p>
+                    <label for="description">Description:</label><br>
+                    <textarea rows="5" cols="100" id="description" name="description"><?php echo $bookDetails['description'] ?? ''; ?></textarea>
+                </p>
+                <p><input type="submit" name="add-book" value="<?php echo $buttonText; ?>"></p>
             </form>
         </main>
-    </div>    
+    </div>
 </body>
+
 </html>
