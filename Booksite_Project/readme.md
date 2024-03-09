@@ -63,6 +63,6 @@ The admin side of the site allows for adding, editing and deleting books. All ch
 
 ## Reference
 
-The initial completion of this project can be found at my [GitHub repository](https://github.com/adelansari/PHP_lessons/tree/main/lecture/basics/final_project/booksite).
+The initial completion of this project can be found at my [GitHub repository](https://github.com/AbuAlSaeidRajon/PHP_Exercise/tree/main/Booksite_Project).
 
 The original project, created by Damien Kuosmanen, is available [here](https://github.com/jiivonen/PHP-booksite).
