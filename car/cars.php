@@ -1,6 +1,19 @@
 <?php
-    // if the form has been sent, add the new car to file
+    $cars = json_decode(file_get_contents("cars.json"), true);
+
+    if (isset($_POST["add-car"])) {
+        $new_car = [
+            "Number" => $_POST["number"],
+            "Make" => $_POST["make"],
+            "Model" => $_POST["model"],
+            "Color" => $_POST["color"]
+        ];
+
+        $cars[] = $new_car;
+        file_put_contents("cars.json", json_encode($cars));
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +46,14 @@
             <th>Color</th>
         </tr>
         <?php
-            // read the data from file and display as table rows
+            foreach ($cars as $car) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($car["Number"]) . "</td>";
+                echo "<td>" . htmlspecialchars($car["Make"]) . "</td>";
+                echo "<td>" . htmlspecialchars($car["Model"]) . "</td>";
+                echo "<td>" . htmlspecialchars($car["Color"]) . "</td>";
+                echo "</tr>";
+            }
         ?>
     </table>
 
