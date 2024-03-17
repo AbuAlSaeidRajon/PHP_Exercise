@@ -15,7 +15,7 @@ if (isset($_SESSION['login'])) {
 }
 
 // Check if the form has been sent. If so, check the username and password and if correct, log the user in and redirect to admin.php.
-// If not correct, show the error message near the form.
+// If not correct, show the error message near the form..............................
 [$correct_username, $correct_password] = ['admin', 'pass'];
 if (isset($_POST['login'])) {
     if ($_POST['username'] === $correct_username && $_POST['password'] === $correct_password) {
