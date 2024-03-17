@@ -25,7 +25,7 @@ if (($key = array_search($id, $favorites)) !== false) {
     $favorites[] = $id;
 }
 
-// favorite book ids array to a string
+// favorite book ids array to a string.................
 $favorites_string = implode(",", $favorites);
 
 $secondsInADay = 60 * 60 * 24; // 86400s or 1 day
