@@ -10,7 +10,7 @@ if (!isset($_SESSION['login'])) {
 $books = json_decode(file_get_contents('books.json'), true);
 
 // Check the POST parameter "bookid". If it's set, delete the corresponding book from the data file.
-// Hint: array_diff will not work here, since you'd need to create the whole book "object". Find the index and use array_splice instead.
+// Hint: array_diff will not work here, since you'd need to create the whole book "object". Find the index and use array_splice instead.............................
 
 if (isset($_POST['bookid'])) {
     $bookid = $_POST['bookid'];
