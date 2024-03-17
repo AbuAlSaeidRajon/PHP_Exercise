@@ -1,16 +1,16 @@
 <?php
 session_start();
-// If the user is not logged in, redirect them back to login.php.
+// If the user is not logged in, redirect them back to login.php.................
 if (!isset($_SESSION['login'])) {
     header("Location: login.php");
     exit();
 }
 
-// Read the file into array variable $books:
+// Read the file into array variable $books:::::
 $books = json_decode(file_get_contents('books.json'), true);
 
 // If 'bookid' is set in the GET request, use it as the book ID (for editing existing book).
-// Otherwise, increment the book ID by one for adding a new book.
+// Otherwise, increment the book ID by one for adding a new book................
 isset($_GET['bookid']) ? $bookid = $_GET['bookid'] : $bookid = count($books) + 1;
 
 // fetch book details for editing
