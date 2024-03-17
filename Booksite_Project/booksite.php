@@ -59,7 +59,7 @@
 
             <?php foreach ($filtered_books as $book) : ?>
                 <?php
-                // get the favorite book ids from the cookie and check if the book is favorite
+                // get the favorite book ids from the cookie and check if the book is favorite..............
                 $favorites = isset($_COOKIE['favorites']) ? explode(",", $_COOKIE['favorites']) : [];
                 $is_favorite = in_array($book['id'], $favorites);
                 ?>
